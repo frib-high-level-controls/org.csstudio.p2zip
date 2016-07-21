@@ -7,7 +7,8 @@
     <!-- get new time w/ `date +%s000` -->
     <property name="p2.timestamp" value="1395756034000"/>
   </properties>
-  <children size="5">
+  <children size="6">
+    <child location="../diirt"/>
 	  <child location="../maven-osgi-bundles"/>
 	  <child location="../thirdparty"/>
 	  <child location="../core"/>

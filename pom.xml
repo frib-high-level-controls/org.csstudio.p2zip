@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright (c) 2013 DESY. All rights reserved. This program and the accompanying 
-  materials are made available under the terms of the Eclipse Distribution 
-  License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/org/documents/edl-v10.php 
-  Contributors: Jan Hatje - created the pom to build the plug-ins -->
+<!-- Copyright (c) 2013 DESY. All rights reserved. This program and the accompanying
+materials are made available under the terms of the Eclipse Distribution
+License v1.0 which accompanies this distribution, and is available at http://www.eclipse.org/org/documents/edl-v10.php
+Contributors: Jan Hatje - created the pom to build the plug-ins -->
 <project
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
   xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -20,10 +20,11 @@
   <!-- PROPERTIES -->
   <properties>
     <!-- VERSIONS -->
-    <tycho.version>0.23.1</tycho.version>
-    <tycho-extras.version>0.23.1</tycho-extras.version>
-     <cs-studio-central.url>http://download.controlsystemstudio.org</cs-studio-central.url>
-     <cs-studio-central.version>4.3</cs-studio-central.version>
+    <tycho.version>0.25.0</tycho.version>
+    <tycho-extras.version>0.25.0</tycho-extras.version>
+    <diirt.version>3.1.2</diirt.version>
+    <cs-studio-central.url>http://download.controlsystemstudio.org</cs-studio-central.url>
+    <cs-studio-central.version>4.3</cs-studio-central.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -66,7 +67,6 @@
         <artifactId>target-platform-configuration</artifactId>
         <version>${tycho.version}</version>
         <configuration>
-
           <environments>
             <environment>
               <os>linux</os>
@@ -93,114 +93,133 @@
         <configuration>
           <!--<compilerArgument>-err:-forbidden</compilerArgument> -->
         </configuration>
-   </plugin>
-   <plugin>
-            <groupId>org.eclipse.tycho.extras</groupId>
-	    <artifactId>tycho-p2-extras-plugin</artifactId>
-	    <version>${tycho-extras.version}</version>
-	    <executions>
-		<execution>
-                    <id>maven-osgi-bundles-p2zip</id>
-                    <phase>prepare-package</phase>
-                    <goals>
-                        <goal>mirror</goal>
-                    </goals>
-                    <configuration>
-                        <source>
-                            <repository>
-				    <url>${cs-studio-central.url}/maven-osgi-bundles/${cs-studio-central.version}</url>
-				    <layout>p2</layout>
-                            </repository>
-                        </source>
-			<append>false</append>
-			<!-- include the latest version of each IU -->
-                        <latestVersionOnly>true</latestVersionOnly>
-			<destination>${project.build.directory}/maven-osgi-bundles</destination>
-                    </configuration>
-                </execution>
-		<execution>
-                    <id>thirdparty-p2zip</id>
-                    <phase>prepare-package</phase>
-                    <goals>
-                        <goal>mirror</goal>
-                    </goals>
-                    <configuration>
-                        <source>
-                            <repository>
-				    <url>${cs-studio-central.url}/thirdparty/${cs-studio-central.version}</url>
-				    <layout>p2</layout>
-                            </repository>
-                        </source>
-			<append>false</append>
-			<!-- include the latest version of each IU -->
-                        <latestVersionOnly>true</latestVersionOnly>
-			<destination>${project.build.directory}/thirdparty</destination>
-                    </configuration>
-                </execution>    
-                <execution>
-                    <id>core-p2zip</id>
-                    <phase>prepare-package</phase>
-                    <goals>
-                        <goal>mirror</goal>
-                    </goals>
-                    <configuration>
-                        <source>
-                            <repository>
-				    <url>${cs-studio-central.url}/core/${cs-studio-central.version}</url>
-				    <layout>p2</layout>
-                            </repository>
-                        </source>
-			<append>false</append>
-			<!-- include the latest version of each IU -->
-                        <latestVersionOnly>true</latestVersionOnly>
-			<destination>${project.build.directory}/core</destination>
-                    </configuration>
-	    </execution>
-	    <execution>
-                    <id>app-p2zip</id>
-                    <phase>prepare-package</phase>
-                    <goals>
-                        <goal>mirror</goal>
-                    </goals>
-                    <configuration>
-                        <source>
-                            <repository>
-				    <url>${cs-studio-central.url}/applications/${cs-studio-central.version}</url>
-				    <layout>p2</layout>
-                            </repository>
-                        </source>
-			<append>false</append>
-			<!-- include the latest version of each IU -->
-                        <latestVersionOnly>true</latestVersionOnly>
-			<destination>${project.build.directory}/applications</destination>
-                    </configuration>
-	    </execution>
-	    <execution>
-                    <id>product-p2zip</id>
-                    <phase>prepare-package</phase>
-                    <goals>
-                        <goal>mirror</goal>
-                    </goals>
-                    <configuration>
-                        <source>
-                            <repository>
-				    <url>${cs-studio-central.url}/product/${cs-studio-central.version}</url>
-				    <layout>p2</layout>
-                            </repository>
-                        </source>
-			<append>false</append>
-			<!-- include the latest version of each IU -->
-                        <latestVersionOnly>true</latestVersionOnly>
-			<destination>${project.build.directory}/product</destination>
-                    </configuration>
-                </execution>
-            </executions>
-    </plugin>
-     <plugin>
+      </plugin>
+      <plugin>
+        <groupId>org.eclipse.tycho.extras</groupId>
+        <artifactId>tycho-p2-extras-plugin</artifactId>
+        <version>${tycho-extras.version}</version>
+        <executions>
+          <execution>
+            <id>diirt-p2zip</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>mirror</goal>
+            </goals>
+            <configuration>
+              <source>
+                <repository>
+                  <url>http://diirt.download.controlsystemstudio.org/diirt/${diirt.version}</url>
+                  <layout>p2</layout>
+                </repository>
+              </source>
+              <append>false</append>
+              <!-- include the latest version of each IU -->
+              <latestVersionOnly>true</latestVersionOnly>
+              <destination>${project.build.directory}/diirt</destination>
+            </configuration>
+          </execution>
+          <execution>
+            <id>maven-osgi-bundles-p2zip</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>mirror</goal>
+            </goals>
+            <configuration>
+              <source>
+                <repository>
+                  <url>${cs-studio-central.url}/maven-osgi-bundles/${cs-studio-central.version}</url>
+                  <layout>p2</layout>
+                </repository>
+              </source>
+              <append>false</append>
+              <!-- include the latest version of each IU -->
+              <latestVersionOnly>true</latestVersionOnly>
+              <destination>${project.build.directory}/maven-osgi-bundles</destination>
+            </configuration>
+          </execution>
+          <execution>
+            <id>thirdparty-p2zip</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>mirror</goal>
+            </goals>
+            <configuration>
+              <source>
+                <repository>
+                  <url>${cs-studio-central.url}/thirdparty/${cs-studio-central.version}</url>
+                  <layout>p2</layout>
+                </repository>
+              </source>
+              <append>false</append>
+              <!-- include the latest version of each IU -->
+              <latestVersionOnly>true</latestVersionOnly>
+              <destination>${project.build.directory}/thirdparty</destination>
+            </configuration>
+          </execution>
+          <execution>
+            <id>core-p2zip</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>mirror</goal>
+            </goals>
+            <configuration>
+              <source>
+                <repository>
+                  <url>${cs-studio-central.url}/core/${cs-studio-central.version}</url>
+                  <layout>p2</layout>
+                </repository>
+              </source>
+              <append>false</append>
+              <!-- include the latest version of each IU -->
+              <latestVersionOnly>true</latestVersionOnly>
+              <destination>${project.build.directory}/core</destination>
+            </configuration>
+          </execution>
+          <execution>
+            <id>app-p2zip</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>mirror</goal>
+            </goals>
+            <configuration>
+              <source>
+                <repository>
+                  <url>${cs-studio-central.url}/applications/${cs-studio-central.version}</url>
+                  <layout>p2</layout>
+                </repository>
+              </source>
+              <append>false</append>
+              <!-- include the latest version of each IU -->
+              <latestVersionOnly>true</latestVersionOnly>
+              <destination>${project.build.directory}/applications</destination>
+            </configuration>
+          </execution>
+          <execution>
+            <id>product-p2zip</id>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>mirror</goal>
+            </goals>
+            <configuration>
+              <source>
+                <repository>
+                  <url>${cs-studio-central.url}/product/${cs-studio-central.version}</url>
+                  <layout>p2</layout>
+                </repository>
+              </source>
+              <append>false</append>
+              <!-- include the latest version of each IU -->
+              <latestVersionOnly>true</latestVersionOnly>
+              <destination>${project.build.directory}/product</destination>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>2.5.3</version>
-	<configuration>
-	  <finalName>cs-studio-${cs-studio-central.version}</finalName>
+        <configuration>
+          <finalName>cs-studio-${cs-studio-central.version}</finalName>
           <descriptor>assembly/package.xml</descriptor>
         </configuration>
         <executions>
