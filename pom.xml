@@ -24,7 +24,7 @@ Contributors: Jan Hatje - created the pom to build the plug-ins -->
     <tycho-extras.version>0.25.0</tycho-extras.version>
     <diirt.version>3.1.2</diirt.version>
     <cs-studio-central.url>http://download.controlsystemstudio.org</cs-studio-central.url>
-    <cs-studio-central.version>4.3</cs-studio-central.version>
+    <cs-studio-central.version>4.4</cs-studio-central.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
