@@ -226,6 +226,9 @@ Contributors: Jan Hatje - created the pom to build the plug-ins -->
           <execution>
             <id>create-archive</id>
             <phase>package</phase>
+            <configuration>
+              <tarLongFileMode>posix</tarLongFileMode>
+            </configuration>
             <goals>
               <goal>single</goal>
             </goals>
